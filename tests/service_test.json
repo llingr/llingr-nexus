@@ -1,0 +1,37 @@
+{
+  "name": "payments-api",
+  "team": "payments-team",
+  "spec": {
+    "description": "Handles payment processing for customer-facing storefronts.\nConsumes the orders topic and dispatches charge requests to the\npayment gateway.\n",
+    "lifecycle": "production",
+    "language": "go",
+    "repository": "https://github.com/acme/payments-api",
+    "documentation": "https://docs.acme.com/services/payments-api",
+    "runbook": "https://docs.acme.com/runbooks/payments-api",
+    "maintainers": ["alice", "bob"],
+    "oncall": {
+      "primary": "payments-oncall",
+      "escalation": "platform-sre",
+      "schedule": "pagerduty:POLICY-PAY-001"
+    },
+    "contacts": [
+      {"type": "slack", "label": "team-chat", "address": "#payments-team"},
+      {"type": "slack", "label": "alerts", "address": "#payments-alerts"},
+      {"type": "email", "label": "team-inbox", "address": "payments@acme.com"},
+      {"type": "pagerduty", "label": "oncall", "address": "POLICY-PAY-001"}
+    ],
+    "dependencies": {
+      "upstream": ["orders-api", "identity-api"],
+      "downstream": ["billing-api", "notifications-api"]
+    },
+    "sla": {
+      "availability": 99.95,
+      "latency_p99_ms": 250
+    },
+    "tags": {
+      "domain": "commerce",
+      "pci_scope": "true",
+      "cost_center": "CC-1234"
+    }
+  }
+}

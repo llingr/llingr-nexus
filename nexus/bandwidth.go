@@ -27,7 +27,7 @@ type BandwidthMetrics struct {
 	ConsumerGroup         string
 	Brokers               []BrokerInfo
 	Partitions            []PartitionBandwidth
-	Team                  *Team // nil if not configured via WithTeam()
+	Service               *Service // nil if not configured
 }
 
 // BrokerInfo describes a broker node at the time of measurement.

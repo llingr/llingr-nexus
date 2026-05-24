@@ -10,10 +10,9 @@ type MetricsSink func(sinkCtx SinkContext, metrics Metrics) error
 
 // SinkContext carries instance-level identity for metrics aggregation.
 type SinkContext struct {
-	TopicName       string
-	ConsumerGroup   string
-	ApplicationName string
-	Team            *Team // nil if not configured via WithTeam()
+	TopicName     string
+	ConsumerGroup string
+	Service       *Service // nil if not configured
 }
 
 // Metrics mutated during message processing, with Traits and other
