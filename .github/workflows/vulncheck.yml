@@ -3,6 +3,8 @@ name: Vulncheck
 on:
   push:
   pull_request:
+  schedule:
+    - cron: '45 5 * * 2'
 
 permissions:
   contents: read
