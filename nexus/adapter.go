@@ -77,6 +77,9 @@ type BrokerPort[T any] interface {
 	ExtractEnvelope(T) Envelope
 
 	// CommitOffsets commits the high-watermark offsets.
+	// A nil error means the ENTIRE batch committed: the engine advances its
+	// baseline for every message, so partial failure MUST return a non-nil
+	// error. The returned messages are advisory only (diagnostics).
 	CommitOffsets(messages []*Message[T]) ([]*Message[T], error)
 
 	// AckRebalance acknowledges rebalance can complete.
