@@ -10,6 +10,9 @@ name: Release build
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: build & attest
