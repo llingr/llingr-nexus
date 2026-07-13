@@ -2,7 +2,6 @@
 
 [![CI](https://github.com/llingr/llingr-nexus/actions/workflows/ci.yml/badge.svg)](https://github.com/llingr/llingr-nexus/actions/workflows/ci.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/llingr/llingr-nexus.svg)](https://pkg.go.dev/github.com/llingr/llingr-nexus)
-[![Go Report Card](https://goreportcard.com/badge/github.com/llingr/llingr-nexus)](https://goreportcard.com/report/github.com/llingr/llingr-nexus)
 [![Tag](https://img.shields.io/github/v/tag/llingr/llingr-nexus)](https://github.com/llingr/llingr-nexus/tags)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/llingr/llingr-nexus)](go.mod)
