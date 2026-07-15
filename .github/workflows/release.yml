@@ -40,5 +40,6 @@ jobs:
           --title "${GITHUB_REF_NAME}"
           --generate-notes
           "llingr-nexus_${GITHUB_REF_NAME}.tar.gz"
+          "llingr-nexus_${GITHUB_REF_NAME}.tar.gz.sigstore"
           "llingr-nexus_${GITHUB_REF_NAME}.cdx.json"
           "llingr-nexus_${GITHUB_REF_NAME}.spdx.json"
