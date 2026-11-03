@@ -14,51 +14,48 @@ import (
 //go:embed service_test.json
 var serviceJSON []byte
 
-// fleetServiceSpec is an example of a Service.Spec schema. This shape lives
-// in fleet (or wherever Service payloads are produced and consumed), NOT in
-// nexus. Nexus carries the JSON bytes through unchanged; the choice of fields
-// here is illustrative and intentionally rich to show what's possible
-type fleetServiceSpec struct {
-	Description   string            `json:"description,omitempty"`
-	Lifecycle     string            `json:"lifecycle,omitempty"`
-	Language      string            `json:"language,omitempty"`
-	Repository    string            `json:"repository,omitempty"`
-	Documentation string            `json:"documentation,omitempty"`
-	Runbook       string            `json:"runbook,omitempty"`
-	Maintainers   []string          `json:"maintainers,omitempty"`
-	Oncall        fleetOncall       `json:"oncall,omitempty"`
-	Contacts      []fleetContact    `json:"contacts,omitempty"`
-	Dependencies  fleetDependencies `json:"dependencies,omitempty"`
-	SLA           fleetSLA          `json:"sla,omitempty"`
-	Tags          map[string]string `json:"tags,omitempty"`
+// exampleServiceSpec is a Service.Spec payload as an application might define it.
+// Nexus passes the JSON bytes through unchanged.
+type exampleServiceSpec struct {
+	Description   string              `json:"description,omitempty"`
+	Lifecycle     string              `json:"lifecycle,omitempty"`
+	Language      string              `json:"language,omitempty"`
+	Repository    string              `json:"repository,omitempty"`
+	Documentation string              `json:"documentation,omitempty"`
+	Runbook       string              `json:"runbook,omitempty"`
+	Maintainers   []string            `json:"maintainers,omitempty"`
+	Oncall        exampleOncall       `json:"oncall,omitempty"`
+	Contacts      []exampleContact    `json:"contacts,omitempty"`
+	Dependencies  exampleDependencies `json:"dependencies,omitempty"`
+	SLA           exampleSLA          `json:"sla,omitempty"`
+	Tags          map[string]string   `json:"tags,omitempty"`
 }
 
-type fleetOncall struct {
+type exampleOncall struct {
 	Primary    string `json:"primary"`
 	Escalation string `json:"escalation,omitempty"`
 	Schedule   string `json:"schedule,omitempty"`
 }
 
-type fleetContact struct {
+type exampleContact struct {
 	Type    string `json:"type"`
 	Label   string `json:"label"`
 	Address string `json:"address"`
 }
 
-type fleetDependencies struct {
+type exampleDependencies struct {
 	Upstream   []string `json:"upstream,omitempty"`
 	Downstream []string `json:"downstream,omitempty"`
 }
 
-type fleetSLA struct {
+type exampleSLA struct {
 	Availability float64 `json:"availability"`
 	LatencyP99Ms int     `json:"latency_p99_ms"`
 }
 
 // TestService_DecodeFromJSON shows the end-to-end pattern for consumers
 // loading a Service from JSON: unmarshal the outer Service with encoding/json,
-// then unmarshal the inner Spec bytes into whatever shape the application
-// defines for itself
+// then unmarshal the inner Spec bytes into the application's own type
 func TestService_DecodeFromJSON(t *testing.T) {
 	var svc nexus.Service
 	if err := json.Unmarshal(serviceJSON, &svc); err != nil {
@@ -72,7 +69,7 @@ func TestService_DecodeFromJSON(t *testing.T) {
 		t.Errorf("Team = %q, want payments-team", svc.Team)
 	}
 
-	var spec fleetServiceSpec
+	var spec exampleServiceSpec
 	if err := json.Unmarshal(svc.Spec, &spec); err != nil {
 		t.Fatalf("unmarshal spec: %v", err)
 	}
